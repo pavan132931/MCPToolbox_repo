@@ -33,4 +33,4 @@ fi
 echo "Starting MCP Toolbox..."
 
 # Start the toolbox
-exec /app/toolbox --tools-file "tools.yaml"
+exec ./toolbox --tools-file "tools.yaml"
