@@ -32,5 +32,5 @@ fi
 
 echo "Starting MCP Toolbox..."
 
-# Start the toolbox
-exec ./toolbox --tools-file "tools.yaml"
+# Start the toolbox with proper host binding for Render
+exec ./toolbox --tools-file "tools.yaml" --host "0.0.0.0" --port "5000"
