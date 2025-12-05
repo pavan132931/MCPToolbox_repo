@@ -1,0 +1,20 @@
+# Logs
+*.log
+
+# Service account keys (IMPORTANT: Don't commit these)
+service-account-key.json
+
+# Large binaries (downloaded in Docker build)
+toolbox.exe
+toolbox
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+.dockerignore

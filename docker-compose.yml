@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  mcp-toolbox:
+    build: .
+    container_name: bigquery-mcp-toolbox
+    ports:
+      - "5000:5000"
+    environment:
+      - BIGQUERY_PROJECT=my-project-13366-bugquery
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/credentials/service-account-key.json
+      - IMPERSONATE_SERVICE_ACCOUNT=aiagent-serivce-account@my-project-13366-bugquery.iam.gserviceaccount.com
+    volumes:
+      # Mount your service account key file (create this file first)
+      - ./service-account-key.json:/app/credentials/service-account-key.json:ro
+    restart: unless-stopped
+    
+  # Alternative: run without Docker for now
+  mcp-toolbox-local:
+    profiles: ["local"]
+    image: alpine
+    command: echo "Run ./toolbox --tools-file tools.yaml locally after authentication"

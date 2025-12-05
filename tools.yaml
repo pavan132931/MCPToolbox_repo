@@ -1,0 +1,20 @@
+sources:
+  my-bigquery-source:
+    kind: "bigquery"
+    project: "my-project-13366-bugquery"
+tools:
+  execute_sql_tool:
+    kind: bigquery-execute-sql
+    source: my-bigquery-source
+    description: Use this tool to execute sql statement.
+  bigquery_get_dataset_info:
+    kind: bigquery-get-dataset-info
+    source: my-bigquery-source
+    description: Use this tool to get dataset metadata.
+  bigquery_get_table_info:
+    kind: bigquery-get-table-info
+    source: my-bigquery-source
+    description: Use this tool to get table metadata.
+
+
+
