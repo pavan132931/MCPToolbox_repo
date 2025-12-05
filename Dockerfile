@@ -6,16 +6,16 @@ RUN apk add --no-cache \
     wget \
     curl
 
+# Set working directory first
+WORKDIR /app
+
 # Download toolbox from official releases
 ENV VERSION=0.22.0
-RUN curl -L -o /app/toolbox https://storage.googleapis.com/genai-toolbox/v$VERSION/linux/amd64/toolbox \
-    && chmod +x /app/toolbox
+RUN curl -L -o toolbox https://storage.googleapis.com/genai-toolbox/v$VERSION/linux/amd64/toolbox \
+    && chmod +x toolbox
 
 # Copy configuration files
 COPY tools.yaml /app/tools.yaml
-
-# Set working directory
-WORKDIR /app
 
 # Expose the MCP port
 EXPOSE 5000
