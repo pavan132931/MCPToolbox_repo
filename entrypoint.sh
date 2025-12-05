@@ -32,5 +32,13 @@ fi
 
 echo "Starting MCP Toolbox..."
 
-# Start the toolbox with proper host binding for Render
-exec ./toolbox --tools-file "tools.yaml" --host "0.0.0.0" --port "5000"
+# Use Render's PORT environment variable if available
+PORT=${PORT:-5000}
+
+echo "Checking toolbox help..."
+./toolbox --help || true
+
+echo "Binding to 0.0.0.0:$PORT"
+
+# Try without explicit binding first - toolbox may auto-detect
+exec ./toolbox --tools-file "tools.yaml"
