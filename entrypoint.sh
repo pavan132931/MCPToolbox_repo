@@ -42,23 +42,14 @@ fi
 echo "=== Starting MCP Toolbox ==="
 
 # Use Render's PORT environment variable if available
-export PORT=${PORT:-5000}
+RENDER_PORT=${PORT:-5000}
 
-echo "Port: $PORT"
+echo "Port: $RENDER_PORT"
 echo "Working directory: $(pwd)"
 echo "Toolbox file: $(ls -lh toolbox)"
 
-# Remove set -e temporarily to see actual error
-set +e
-
 echo ""
-echo "=== Attempting to start toolbox ==="
-./toolbox --tools-file "tools.yaml" --address "0.0.0.0:$PORT"
-EXIT_CODE=$?
-echo "Exit code: $EXIT_CODE"
+echo "=== Starting toolbox on 0.0.0.0:$RENDER_PORT ==="
 
-if [ $EXIT_CODE -ne 0 ]; then
-    echo ""
-    echo "=== First attempt failed, trying alternate flags ==="
-    ./toolbox --tools-file "tools.yaml" --http-address "0.0.0.0:$PORT"
-fi
+# The toolbox uses separate --address and --port flags
+exec ./toolbox --tools-file "tools.yaml" --address "0.0.0.0" --port "$RENDER_PORT" 2>&1
