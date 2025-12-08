@@ -43,14 +43,22 @@ echo "=== Starting MCP Toolbox ==="
 
 # Use Render's PORT environment variable if available
 export PORT=${PORT:-5000}
-export MCP_PORT=$PORT
-export MCP_HOST=0.0.0.0
 
 echo "Port: $PORT"
-echo "Host: 0.0.0.0"
 echo "Working directory: $(pwd)"
 echo "Toolbox file: $(ls -lh toolbox)"
 
-# Start the toolbox with explicit host and port binding
-# Google MCP Toolbox uses --http-address for the server binding
-exec ./toolbox --tools-file "tools.yaml" --http-address "0.0.0.0:$PORT" 2>&1
+# Remove set -e temporarily to see actual error
+set +e
+
+echo ""
+echo "=== Attempting to start toolbox ==="
+./toolbox --tools-file "tools.yaml" --address "0.0.0.0:$PORT"
+EXIT_CODE=$?
+echo "Exit code: $EXIT_CODE"
+
+if [ $EXIT_CODE -ne 0 ]; then
+    echo ""
+    echo "=== First attempt failed, trying alternate flags ==="
+    ./toolbox --tools-file "tools.yaml" --http-address "0.0.0.0:$PORT"
+fi
